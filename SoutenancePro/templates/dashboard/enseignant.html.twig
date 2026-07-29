@@ -1,0 +1,39 @@
+
+{% extends 'base/base.html.twig' %}
+{% block title %}Mon tableau de bord{% endblock %}
+{% block body %}
+<h2 class="mb-4">Mon tableau de bord</h2>
+<div class="card card-stat p-3 mb-4" style="max-width:250px">
+    <div class="d-flex align-items-center gap-3">
+        <div class="icon text-primary"><i class="bi bi-calendar-check"></i></div>
+        <div>
+            <h3 class="mb-0">{{ nb_soutenances }}</h3>
+            <small class="text-muted">Soutenance(s)</small>
+        </div>
+    </div>
+</div>
+{% if soutenances|length > 0 %}
+<table class="table table-hover bg-white shadow-sm rounded">
+    <thead class="table-light">
+        <tr><th>Date</th><th>Heure</th><th>Étudiant</th><th>Salle</th><th>Rôle</th></tr>
+    </thead>
+    <tbody>
+    {% for s in soutenances %}
+        <tr>
+            <td>{{ s.date|date('d/m/Y') }}</td>
+            <td>{{ s.heure|date('H:i') }}</td>
+            <td>{{ s.etudiant }}</td>
+            <td>{{ s.salle }}</td>
+            <td>
+                {% if s.president == enseignant %}<span class="badge bg-primary">Président</span>{% endif %}
+                {% if s.rapporteur == enseignant %}<span class="badge bg-info">Rapporteur</span>{% endif %}
+                {% if s.examinateur == enseignant %}<span class="badge bg-secondary">Examinateur</span>{% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="text-muted">Aucune soutenance programmée pour le moment.</p>
+{% endif %}
+{% endblock %}

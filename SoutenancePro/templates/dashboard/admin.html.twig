@@ -1,0 +1,36 @@
+
+{% extends 'base/base.html.twig' %}
+{% block title %}Tableau de bord Admin{% endblock %}
+{% block body %}
+<h2 class="mb-4">Tableau de bord</h2>
+<div class="row g-3">
+    <div class="col-md-3">
+        <div class="card card-stat text-center p-3">
+            <div class="icon text-primary"><i class="bi bi-people-fill"></i></div>
+            <h3 class="mt-2 mb-0">{{ nb_etudiants }}</h3>
+            <small class="text-muted">Étudiants</small>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stat text-center p-3">
+            <div class="icon text-success"><i class="bi bi-person-badge-fill"></i></div>
+            <h3 class="mt-2 mb-0">{{ nb_enseignants }}</h3>
+            <small class="text-muted">Enseignants</small>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stat text-center p-3">
+            <div class="icon text-warning"><i class="bi bi-building"></i></div>
+            <h3 class="mt-2 mb-0">{{ nb_salles }}</h3>
+            <small class="text-muted">Salles</small>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stat text-center p-3">
+            <div class="icon text-danger"><i class="bi bi-calendar-event-fill"></i></div>
+            <h3 class="mt-2 mb-0">{{ nb_soutenances }}</h3>
+            <small class="text-muted">Soutenances</small>
+        </div>
+    </div>
+</div>
+{% endblock %}

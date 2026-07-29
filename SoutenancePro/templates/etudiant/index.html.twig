@@ -1,0 +1,35 @@
+
+{% extends 'base/base.html.twig' %}
+{% block title %}Étudiants{% endblock %}
+{% block body %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Étudiants</h2>
+    <a href="{{ path('app_etudiant_new') }}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Nouvel étudiant</a>
+</div>
+<form class="mb-3" method="get">
+    <div class="input-group" style="max-width:350px">
+        <input type="text" name="q" value="{{ q }}" class="form-control" placeholder="Rechercher par nom...">
+        <button class="btn btn-outline-secondary"><i class="bi bi-search"></i></button>
+    </div>
+</form>
+<table class="table table-hover bg-white shadow-sm">
+    <thead class="table-light"><tr><th>Nom</th><th>Prénom</th><th>Email</th><th>Filière</th><th>Thème</th><th></th></tr></thead>
+    <tbody>
+    {% for e in etudiants %}
+        <tr>
+            <td>{{ e.nom }}</td><td>{{ e.prenom }}</td><td>{{ e.email }}</td><td>{{ e.filiere }}</td>
+            <td>{{ e.themeMemoire|u.truncate(40) }}</td>
+            <td class="text-end text-nowrap">
+                <a href="{{ path('app_etudiant_edit', {id: e.id}) }}" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                <form method="post" action="{{ path('app_etudiant_delete', {id: e.id}) }}" class="d-inline" onsubmit="return confirm('Supprimer cet étudiant ?')">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ e.id) }}">
+                    <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                </form>
+            </td>
+        </tr>
+    {% else %}
+        <tr><td colspan="6" class="text-center text-muted">Aucun étudiant</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

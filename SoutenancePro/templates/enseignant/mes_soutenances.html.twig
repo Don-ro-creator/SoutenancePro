@@ -1,0 +1,22 @@
+
+{% extends 'base/base.html.twig' %}
+{% block title %}Mes soutenances{% endblock %}
+{% block body %}
+<h2 class="mb-3">Mes soutenances</h2>
+<table class="table table-hover bg-white shadow-sm">
+    <thead class="table-light"><tr><th>Date</th><th>Heure</th><th>Étudiant</th><th>Thème</th><th>Salle</th></tr></thead>
+    <tbody>
+    {% for s in soutenances %}
+        <tr>
+            <td>{{ s.date|date('d/m/Y') }}</td>
+            <td>{{ s.heure|date('H:i') }}</td>
+            <td>{{ s.etudiant }}</td>
+            <td>{{ s.etudiant.themeMemoire|u.truncate(40) }}</td>
+            <td>{{ s.salle }}</td>
+        </tr>
+    {% else %}
+        <tr><td colspan="5" class="text-center text-muted">Aucune soutenance</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

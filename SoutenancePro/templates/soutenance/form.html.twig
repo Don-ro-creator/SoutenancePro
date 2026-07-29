@@ -1,0 +1,21 @@
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+{% extends 'base/base.html.twig' %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+<h2 class="mb-3">{{ title }}</h2>
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        {{ form_start(form) }}
+            {{ form_row(form.etudiant) }}
+            {{ form_row(form.president) }}
+            {{ form_row(form.rapporteur) }}
+            {{ form_row(form.examinateur) }}
+            {{ form_row(form.salle) }}
+            {{ form_row(form.date) }}
+            {{ form_row(form.heure) }}
+            <button class="btn btn-primary mt-2">Enregistrer</button>
+            <a href="{{ path('app_soutenance_index') }}" class="btn btn-secondary mt-2">Annuler</a>
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}

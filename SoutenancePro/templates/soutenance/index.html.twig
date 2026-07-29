@@ -1,0 +1,43 @@
+
+{% extends 'base/base.html.twig' %}
+{% block title %}Soutenances{% endblock %}
+{% block body %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Soutenances</h2>
+    <a href="{{ path('app_soutenance_new') }}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Programmer</a>
+</div>
+<form class="mb-3" method="get">
+    <div class="input-group" style="max-width:300px">
+        <input type="date" name="date" value="{{ date }}" class="form-control">
+        <button class="btn btn-outline-secondary">Filtrer</button>
+        {% if date %}<a href="{{ path('app_soutenance_index') }}" class="btn btn-outline-danger">X</a>{% endif %}
+    </div>
+</form>
+<table class="table table-hover bg-white shadow-sm">
+    <thead class="table-light">
+        <tr><th>Date</th><th>Heure</th><th>Étudiant</th><th>Président</th><th>Rapporteur</th><th>Examinateur</th><th>Salle</th><th></th></tr>
+    </thead>
+    <tbody>
+    {% for s in soutenances %}
+        <tr>
+            <td>{{ s.date|date('d/m/Y') }}</td>
+            <td>{{ s.heure|date('H:i') }}</td>
+            <td>{{ s.etudiant }}</td>
+            <td>{{ s.president }}</td>
+            <td>{{ s.rapporteur }}</td>
+            <td>{{ s.examinateur }}</td>
+            <td>{{ s.salle.code }}</td>
+            <td class="text-end text-nowrap">
+                <a href="{{ path('app_soutenance_edit', {id: s.id}) }}" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                <form method="post" action="{{ path('app_soutenance_cancel', {id: s.id}) }}" class="d-inline" onsubmit="return confirm('Annuler cette soutenance ?')">
+                    <input type="hidden" name="_token" value="{{ csrf_token('cancel' ~ s.id) }}">
+                    <button class="btn btn-sm btn-outline-danger"><i class="bi bi-x-circle"></i></button>
+                </form>
+            </td>
+        </tr>
+    {% else %}
+        <tr><td colspan="8" class="text-center text-muted">Aucune soutenance</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
